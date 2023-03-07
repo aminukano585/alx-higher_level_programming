@@ -7,19 +7,25 @@
  *
  * @list: pointer to the list
  *
- * Return: 1 if cyclical, 0 otherwise
+ * Return: 0 if there is no cycle, 1 otherwise
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *slow = list, *fast = list;
+	listint_t *slow, *fast;
 
-	while (fast && fast->next)
+	if (list == NULL)
+		return (0);
+
+	slow = list;
+	fast = list->next;
+
+	while (fast != NULL && fast->next != NULL)
 	{
-		slow = slow->next;
-		fast = fast->next->next;
-
 		if (slow == fast)
 			return (1);
+
+		slow = slow->next;
+		fast = fast->next->next;
 	}
 
 	return (0);
